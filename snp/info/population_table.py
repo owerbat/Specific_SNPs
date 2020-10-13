@@ -1,8 +1,8 @@
-from data_readers import SubjectReader
+from snp.data.data_readers import SubjectReader
 
 
 def get_population_table():
-    reader = SubjectReader('../../data/s_pop.txt')
+    reader = SubjectReader('../../../data/s_pop.txt')
     super_pops = reader.data.super_pop.unique()
 
     for sp in super_pops:

@@ -70,12 +70,12 @@ class SNPReader:
         '''
         Need to remove # before header line in .vcf file
         '''
-        self.raw_data = pd.read_csv(filename, sep='\t', header=0, comment='#')
+        self.raw_data = pd.read_csv(filename, sep='\t', header=0, index_col='POS', comment='#')
         self.data = self.raw_data
 
     def reset_data(self, filename=None):
         if filename is not None:
-            self.raw_data = pd.read_csv(filename, sep='\t', header=0, names=self.names)
+            self.raw_data = pd.read_csv(filename, sep='\t', header=0, index_col='POS', names=self.names)
         self.data = self.raw_data
 
     def leave_chromos(self, chromos):
@@ -83,3 +83,6 @@ class SNPReader:
 
     def remove_chromos(self, chromos):
         self.data = self.data.drop[self.data['CHROM'].isin(chromos)]
+
+    def split_data(self):
+        return self.data.iloc[:, :8], self.data.iloc[:, 8:].transpose()

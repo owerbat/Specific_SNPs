@@ -30,7 +30,7 @@ class GeneChromoReader:
         for _, row in self.data.iterrows():
             if row['start'] <= mapinfo <= row['end']:
                 result.append((row['gene'], row['chromo']))
-        return result
+        return result if len(result) > 0 else [('NA', 'NA')]
 
 
 class SubjectReader:

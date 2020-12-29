@@ -1,7 +1,7 @@
 import numpy as np
 from itertools import combinations
 from snp.data.data_readers import SNPReader, SubjectReader, GeneChromoReader
-from sklearn.model_selection import train_test_split, KFold
+from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
@@ -27,7 +27,7 @@ ESTIMATORS = [
 ]
 
 
-def classify(Estimator, name, params, X, y, gene_reader, columns, features):
+def classify(Estimator, params, X, y, columns, features, filename):
     n = int(.1*len(columns))
     accuracy = []
     kf = KFold(n_splits=10, shuffle=True, random_state=0)
@@ -48,13 +48,13 @@ def classify(Estimator, name, params, X, y, gene_reader, columns, features):
                 except KeyError:
                     features.update({feature: 1})
 
-    with open('./results/binary_classification_mit.txt', 'a') as file:
+    with open(filename, 'a') as file:
         file.write(f'{np.mean(accuracy)}\t')
 
 
-def compute(super_pops, pops, gene_reader, x):
+def compute(super_pops, pops, gene_reader, x, filename):
     print(f'{pops[0]} ({super_pops[0]})\t{pops[1]} ({super_pops[1]})')
-    with open('./results/binary_classification_mit.txt', 'a') as file:
+    with open(filename, 'a') as file:
         file.write(f'{pops[0]} ({super_pops[0]})\t{pops[1]} ({super_pops[1]})\t')
 
     subject_reader = SubjectReader(SUBJECT_FILENAME)
@@ -66,15 +66,15 @@ def compute(super_pops, pops, gene_reader, x):
     y = np.array([subject_reader.data.loc[subject_reader.data['id'] == id]['pop'] for id in subjects]).ravel()
 
     best_features = {}
-    for Estimator, name, params in ESTIMATORS:
-        classify(Estimator, name, params, X, y, gene_reader, x.columns, best_features)
+    for Estimator, _, params in ESTIMATORS:
+        classify(Estimator, params, X, y, x.columns, best_features, filename)
 
     top_number = 10
     top_features = sorted(best_features.items(), key=lambda a: -a[1])[:top_number]
     top_features = [f[0] for f in top_features]
     top_info = np.array([gene_reader.get_info(top_features[i]) for i in range(top_number)]).reshape(top_number, -1, 2)
 
-    with open('./results/binary_classification_mit.txt', 'a') as file:
+    with open(filename, 'a') as file:
         for i, feature in enumerate(top_features):
             file.write(f'{feature} ({top_info[i, :, 0]})\t')
         file.write('\n')
@@ -137,7 +137,7 @@ def main():
     # )
 
     for pop1, pop2 in combinations(populations, 2):
-        compute((pop1[0], pop2[0]), (pop1[1], pop2[1]), gene_reader, x)
+        compute((pop1[0], pop2[0]), (pop1[1], pop2[1]), gene_reader, x, './results/binary_classification_mit.txt')
 
 
 if __name__ == "__main__":

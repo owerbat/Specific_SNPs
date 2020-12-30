@@ -100,8 +100,6 @@ class SNPKernelReader:
             for _ in range(252):
                 file.readline()
 
-            # header = file.readline()[:-1].split('\t')
-            # header[0] = header[0][1:]
             result_file.write(file.readline())
 
             for line in file:
@@ -112,7 +110,6 @@ class SNPKernelReader:
     def get_common_table(self, genes):
         dfs = [pd.read_csv(f'../data/gene_data/{gene}.vcf', sep='\t', header=0, index_col='POS') for gene in genes]
         common = pd.concat(dfs)
-        # print(common.head(10))
 
         info = common.iloc[:, :9]
         x = common.iloc[:, 9:].transpose()

@@ -1,1 +1,1 @@
-__all__ = ['get_population_table', 'chr_by_genes']
+__all__ = ['get_population_table', 'chr_by_genes', 'poly_counter']

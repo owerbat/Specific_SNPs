@@ -3,6 +3,10 @@ from itertools import combinations
 from snp.data.data_readers import SNPReader, SubjectReader, GeneChromoReader
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
+
+from sklearnex import patch_sklearn
+patch_sklearn()
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier

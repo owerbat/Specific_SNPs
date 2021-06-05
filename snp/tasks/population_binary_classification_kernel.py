@@ -12,30 +12,72 @@ from snp.tasks.population_binary_classification_mit import SUBJECT_FILENAME, \
     GENE_FILENAME, ESTIMATORS
 
 
+# dietary thermogenesis
+# genes = [
+#     'BMP8A', # 1
+#     'OMA1', # 1
+#     'UCP1', # 4
+#     'ADRB2', # 5
+#     'ADRB1', # 10
+#     'APPL2', # 12
+#     'TRPV4', # 12
+#     'TRPV1', # 17
+#     'MC4R', # 18
+# ]
+
+# cold adaptation
 genes = [
-        'BMP8A', # 1
-        'OMA1', # 1
-        'UCP1', # 4
-        'ADRB2', # 5
-        'ADRB1', # 10
-        'APPL2', # 12
-        'TRPV4', # 12
-        'TRPV1', # 17
-        'MC4R', # 18
-    ]
+    'LEPR', # 1
+    'PRDM16', # 1
+    'CREB1', # 2
+    'PPARG', # 3
+    'PRKAR2A', # 3
+    'PPARGC1A', # 4
+    'UCP1', # 4
+    'PPARGC1B', # 5
+    'HOXA1', # 7
+    'LEP', # 7
+    'NRF1', # 7
+    'PRKAR1B', # 7
+    'PRKAR2B', # 7
+    'ADRA1A', # 8
+    'ADRB3', # 8
+    'PLIN2', # 9
+    'UCP2', # 11
+    'UCP3', # 11
+    'HOXC4', # 12
+    'DIO2', # 14
+    'PLIN1', # 15
+    'FTO', # 16
+    'PRKAR1A', # 17
+    'CIDEA', # 18
+    'LIPE', # 19
+    'PLIN3', # 19
+    'PLIN5', # 19
+    'NRIP1', # 21
+]
 
 
 def make_genes_files():
-    # reader = SNPKernelReader('../data/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    # reader = SNPKernelReader('../data/ALL.chr4.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr4.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    # reader = SNPKernelReader('../data/ALL.chr5.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr5.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    # reader = SNPKernelReader('../data/ALL.chr10.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr10.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    # reader = SNPKernelReader('../data/ALL.chr12.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr12.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    # reader = SNPKernelReader('../data/ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
-    reader = SNPKernelReader('../data/ALL.chr18.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf/ALL.chr18.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr2.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr3.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr4.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr5.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr7.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr8.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr9.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr11.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr12.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr14.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr15.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr16.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr18.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    # reader = SNPKernelReader('../data/ALL.chr19.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
+    reader = SNPKernelReader('../data/ALL.chr21.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf')
 
     genes_data = chr_by_genes(genes)
-    print(genes_data)
 
     for gene, gene_data in genes_data.items():
         start, end, _ = gene_data
@@ -123,13 +165,13 @@ def main():
     X = pd.DataFrame(X, x.index, columns)
     print(X)
 
-    populations = (
-        ('EAS', 'JPT'),
-        ('EUR', 'TSI'),
-        ('AFR', 'LWK'),
-        ('SAS', 'PJL'),
-        ('AMR', 'PEL'),
-    )
+    # populations = (
+    #     ('EAS', 'JPT'),
+    #     ('EUR', 'TSI'),
+    #     ('AFR', 'LWK'),
+    #     ('SAS', 'PJL'),
+    #     ('AMR', 'PEL'),
+    # )
 
     # populations = (
     #     ('EAS', 'JPT'),
@@ -165,17 +207,17 @@ def main():
     #     ('AFR', 'ASW'),
     # )
 
-    # populations = (
-    #     ('AMR', 'PUR'),
-    #     ('AMR', 'CLM'),
-    #     ('AMR', 'PEL'),
-    #     ('AMR', 'MXL'),
-    # )
+    populations = (
+        ('AMR', 'PUR'),
+        ('AMR', 'CLM'),
+        ('AMR', 'PEL'),
+        ('AMR', 'MXL'),
+    )
 
     for pop1, pop2 in combinations(populations, 2):
-        compute((pop1[0], pop2[0]), (pop1[1], pop2[1]), gene_reader, X, './results/binary_classification_kernel.txt')
-    
+        compute((pop1[0], pop2[0]), (pop1[1], pop2[1]), gene_reader, X, './results/binary_classification_kernel_cold.txt')
 
 
 if __name__ == "__main__":
+    # make_genes_files()
     main()

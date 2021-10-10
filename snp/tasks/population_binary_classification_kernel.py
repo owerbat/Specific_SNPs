@@ -144,7 +144,9 @@ def compute(super_pops, pops, gene_reader, x, filename):
 
 def main():
     gene_reader = GeneChromoReader(GENE_FILENAME)
-    gene_reader.leave_chromos(['1', '4', '5', '10', '12', '17', '18'])
+    # gene_reader.leave_chromos(['1', '4', '5', '10', '12', '17', '18'])
+    gene_reader.leave_chromos(['1', '2', '3', '4', '5', '7', '8', '9', '11', '12', '14',
+                               '15', '16', '17', '18', '19', '21'])
 
     snp_reader = SNPKernelReader()
     _, x = snp_reader.get_common_table(genes)

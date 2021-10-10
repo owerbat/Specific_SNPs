@@ -87,8 +87,12 @@ class SNPReader:
     def remove_chromos(self, chromos):
         self.data = self.data.drop[self.data['CHROM'].isin(chromos)]
 
-    def split_data(self):
-        return self.data.iloc[:, :8], self.data.iloc[:, 8:].transpose()
+    def split_data(self, drop=[]):
+        if len(drop) > 0:
+            self.data.drop(drop, axis=1, inplace=True)
+        info, x = self.data.iloc[:, :8], self.data.iloc[:, 8:]
+        x.sort_index(axis=1, inplace=True)
+        return info, x.transpose()
 
 
 class SNPKernelReader:
@@ -107,12 +111,16 @@ class SNPKernelReader:
                 if start <= int(data[1]) <= end:
                     result_file.write(line)
 
-    def get_common_table(self, genes):
+    def get_common_table(self, genes, drop=[]):
         dfs = [pd.read_csv(f'../data/gene_data/{gene}.vcf', sep='\t', header=0, index_col='POS') for gene in genes]
         common = pd.concat(dfs)
+        if len(drop) > 0:
+            common.drop(drop, axis=1, inplace=True)
 
-        info = common.iloc[:, :9]
-        x = common.iloc[:, 9:].transpose()
+        info, x = common.iloc[:, :8], common.iloc[:, 8:]
+        x.drop('#CHROM', axis=1, inplace=True)
+        x.sort_index(axis=1, inplace=True)
+        x = x.transpose()
 
         x.where(x.isin(('0|0', '0|1', '1|0', '1|1')), '_NA_', inplace=True)
         x.replace('1|0', '0|1', inplace=True)
